@@ -588,6 +588,7 @@ class StrokeDetector {
       //print(strokeGap);
       lastStrokeTimeMs = sampleMs;
       strokeTimes.add(lastStrokeTimeMs);
+      Vibration.vibrate(duration: 500); //thigh haptic
       // recovery-based cadence
       xcadence = 60000/strokeGap;
       liveCadence.add(xcadence);
@@ -789,12 +790,9 @@ class _ERGOneState extends State<ERGOne> {
       xpieceTimemin =double.parse(pieceTimemin.toStringAsFixed(2));
       xminPer500 = double.parse(minPer500.toStringAsFixed(2));
       // at end of a piece build these lists
-      // WRONG!!
       buildRows();  // build rows list from streaming (time, liveCadence) in detector
       buildUser();  // only build once here
 
-      // combine lists for export
-      //combinedReportLists =[user + rows];
 
       setState(() {avgCadence;           // LIVE
         threshold;                    // LIVE
@@ -833,7 +831,7 @@ class _ERGOneState extends State<ERGOne> {
               // look for FLSpot in streaming section (line 489 for chatGPT solution)
              SizedBox(
                 width: 360,
-                height: 200,
+                height: 140,
                 child: LineChart(
                   LineChartData(
                     //ONLY ONE HORIZONTAL AXIS (axis modified to  seconds)
@@ -899,7 +897,7 @@ class _ERGOneState extends State<ERGOne> {
                     textAlign: TextAlign.center
                 ),    // TEXT
               ),
-              SizedBox(
+     /*         SizedBox(
                 height:40, //height of button
                 width:180, //width of button
                 child: Text('Target Cadence: $_currentSlider3Value',
@@ -907,7 +905,10 @@ class _ERGOneState extends State<ERGOne> {
                     textAlign: TextAlign.center
                 ),    // TEXT
               ),
+
+      */
               // DISTANCE ROWED-------------------------------------------------
+              // REPPLACE WITH MTRS TO GO
               SizedBox(
                 height:40, //height of button
                 width:180, //width of button
@@ -944,7 +945,7 @@ class _ERGOneState extends State<ERGOne> {
               ),
     //------------------------------------------------------------------------
               SizedBox(
-                height:20,
+                height:10,
                 width: 100,
               ),
   /* // PAUSE,STOP, OR RESTART--------------------------------------------------------------
@@ -965,7 +966,7 @@ class _ERGOneState extends State<ERGOne> {
               ),*/
   //---------------------------------------------------------------------------
               SizedBox(
-                height:20,
+                height:10,
                 width: 100,
               ),
   // GO TO REPORT----------------------------------------------------------------
